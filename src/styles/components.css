@@ -1,0 +1,332 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 320px;
+  background-color: var(--bg-panel);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  z-index: 10;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.toolbar {
+  height: 80px;
+  background-color: var(--bg-panel);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.canvas-container {
+  flex: 1;
+  position: relative;
+  background-color: var(--bg-main);
+}
+
+/* Buttons and Inputs */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  background: var(--bg-main);
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--border-color);
+}
+
+.btn-primary {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: white;
+  box-shadow: 0 0 15px var(--accent-primary-glow);
+}
+.btn-primary:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.input-field {
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  width: 100%;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.input-field:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px var(--accent-primary-glow);
+}
+
+/* React Flow Custom Overrides */
+.react-flow__node {
+  border-radius: 50%;
+}
+.react-flow__handle {
+  width: 8px;
+  height: 8px;
+  background: var(--text-muted);
+}
+
+.node-custom {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--node-bg);
+  border: 2px solid var(--node-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.node-custom.is-start::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: transparent transparent transparent var(--text-main);
+}
+
+.node-custom.is-accept::after {
+  content: '';
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--node-border);
+}
+
+.node-custom.is-active {
+  border-color: var(--accent-active);
+  box-shadow: 0 0 20px var(--accent-active-glow);
+  color: var(--accent-active);
+}
+.node-custom.is-active.is-accept::after {
+  border-color: var(--accent-active);
+}
+
+/* Validation Status Panel */
+.status-panel {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  min-width: 250px;
+  z-index: 20;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.status-badge.accepted {
+  background: var(--accent-success-glow);
+  color: var(--accent-success);
+  border: 1px solid var(--accent-success);
+  box-shadow: 0 0 15px var(--accent-success-glow);
+}
+
+.status-badge.rejected {
+  background: var(--accent-danger-glow);
+  color: var(--accent-danger);
+  border: 1px solid var(--accent-danger);
+  box-shadow: 0 0 15px var(--accent-danger-glow);
+}
+
+.shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+.glow-edge path {
+  stroke: var(--accent-active) !important;
+  stroke-width: 2.5px;
+  filter: drop-shadow(0 0 8px var(--accent-active-glow));
+  animation: strokeDashPulse 1.5s linear infinite;
+}
+
+@keyframes strokeDashPulse {
+  0% { stroke-dasharray: 5, 10; stroke-dashoffset: 20; }
+  100% { stroke-dasharray: 5, 10; stroke-dashoffset: 0; }
+}
+
+.react-flow__edge-path {
+  stroke: var(--border-color);
+  stroke-width: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Theory Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.modal-content {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  width: 100%;
+  max-width: 650px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-icon {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  padding: 4px;
+  border-radius: 4px;
+}
+.btn-icon:hover {
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.modal-section h3 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: var(--text-main);
+}
+.modal-section p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.theory-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.theory-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.keyword {
+  display: inline-block;
+  background: var(--accent-primary-glow);
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-family: monospace;
+  min-width: 35px;
+  text-align: center;
+}
+
+.theory-card {
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+}
+.theory-card h4 {
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+.modal-footer {
+  padding: 20px 24px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-panel);
+}
+
